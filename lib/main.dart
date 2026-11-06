@@ -21,6 +21,34 @@ class GroceryApp extends StatelessWidget {
   }
 }
 
+// ===== COMMON: Figma maathiri status bar (time, signal, wifi, battery) =====
+class FakeStatusBar extends StatelessWidget {
+  const FakeStatusBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: const [
+        Text(
+          "9:41",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black),
+        ),
+        Row(
+          children: [
+            Icon(Icons.signal_cellular_alt, size: 16, color: Colors.black),
+            SizedBox(width: 5),
+            Icon(Icons.wifi, size: 16, color: Colors.black),
+            SizedBox(width: 5),
+            Icon(Icons.battery_full, size: 16, color: Colors.black),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 // 1. HOME SCREEN
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -54,29 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Phone Status Bar
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "9:41",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.black),
-                      ),
-                      Row(
-                        children: const [
-                          Icon(Icons.signal_cellular_alt,
-                              size: 16, color: Colors.black),
-                          SizedBox(width: 5),
-                          Icon(Icons.wifi, size: 16, color: Colors.black),
-                          SizedBox(width: 5),
-                          Icon(Icons.battery_full,
-                              size: 16, color: Colors.black),
-                        ],
-                      ),
-                    ],
-                  ),
+                  const FakeStatusBar(),
                   const SizedBox(height: 20),
 
                   // Carrot Logo
@@ -611,6 +617,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 bottom: false,
                 child: Column(
                   children: [
+                    // ===== MAATHINADHU: status bar (time, wifi, battery) =====
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(20, 8, 20, 0),
+                      child: FakeStatusBar(),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Row(
@@ -911,7 +922,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  // ===== MAATHINADHU: Cart + Checkout page-ku pogum =====
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -1160,6 +1170,12 @@ class _CartScreenState extends State<CartScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            // ===== MAATHINADHU: status bar =====
+            const Padding(
+              padding: EdgeInsets.fromLTRB(20, 8, 20, 0),
+              child: FakeStatusBar(),
+            ),
+
             // Header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
@@ -1306,7 +1322,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
             ),
 
-            // Go to Checkout button (sheet-a close panninaalum thirumba open pannalam)
+            // Go to Checkout button
             if (!_removed)
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 6, 20, 14),
@@ -1352,6 +1368,11 @@ class OrderAcceptedScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
+              // ===== MAATHINADHU: status bar =====
+              const Padding(
+                padding: EdgeInsets.only(top: 8),
+                child: FakeStatusBar(),
+              ),
               const Spacer(flex: 2),
 
               // Green check circle
